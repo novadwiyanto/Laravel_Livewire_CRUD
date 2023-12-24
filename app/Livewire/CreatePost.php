@@ -17,8 +17,8 @@ class CreatePost extends Component
             $this->form->validate()
         );
 
-        $this->reset();
         $this->dispatch('post-created');
+        $this->form->reset();
         
     }
 

@@ -14,10 +14,8 @@ class TablePost extends Component
 
     #[On('post-created')]
     
-    // public function delete($id) {
-    //     $post = Post::where('id', $id)->first();
- 
- 
+    // public function delete($id_delete) {
+    //     $post = Post::where('id', $id_delete)->first();
     //     $post->delete();
     // }
     
