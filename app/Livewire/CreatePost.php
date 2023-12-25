@@ -4,12 +4,15 @@ namespace App\Livewire;
 
 use App\Models\Post;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use App\Livewire\Forms\PostForm;
 
 
 class CreatePost extends Component
-{   
+{
     public PostForm $form;
+    public ?Post $post;
+    public $update_data = false;
 
     public function add()
     {
@@ -17,16 +20,30 @@ class CreatePost extends Component
             $this->form->validate()
         );
 
-        $this->dispatch('post-created');
         $this->form->reset();
-        
+        $this->dispatch('post-created');
+    }
+
+    #[On('edit-post')]
+    public function edit($id)
+    {
+        $this->post = Post::where('id', $id)->first();
+        $this->form->name = $this->post->name;
+        $this->form->description = $this->post->description;
+        $this->update_data = true;
+    }
+
+    public function update()
+    {
+        $this->post->update($this->form->validate());
+
+        $this->update_data = false;
+        $this->form->reset();
+        $this->dispatch('post-updated');
     }
 
     public function render()
     {
-
-        $post = Post::all();
-        return view('livewire.create-post', ['post' => $post]);
-        
+        return view('livewire.create-post');
     }
 }

@@ -12,15 +12,22 @@ class TablePost extends Component
     use WithPagination;
     protected $paginationTheme = 'Bootstrap';
 
+    public function delete($id)
+    {
+        $post = Post::where('id', $id)->first();
+        $post->delete();
+    }
+
+    public function update($id)
+    {
+        $this->dispatch('edit-post', id: $id);
+    }
+
     #[On('post-created')]
-    
-    // public function delete($id_delete) {
-    //     $post = Post::where('id', $id_delete)->first();
-    //     $post->delete();
-    // }
-    
+    #[On('post-updated')]
     public function render()
     {
-        return view('livewire.table-post', ['post' => Post::latest()->paginate(5)]);
+        $post = Post::latest()->paginate(5);
+        return view('livewire.table-post', ['post' => $post]);
     }
 }
