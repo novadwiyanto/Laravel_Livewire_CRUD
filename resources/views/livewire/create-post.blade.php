@@ -1,11 +1,5 @@
 <div class="p-3">
     <div class="card p-3">
-        @if ($update_data == true)
-            <form wire:submit="update">
-            @else
-                <form wire:submit="add">
-        @endif
-        @csrf
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control mx-auto m-2" id="name" wire:model="form.name">
@@ -24,12 +18,13 @@
                 @enderror
             </div>
         </div>
-        @if ($update_data == true)
-            <button type="sumbit" class="btn btn-primary mx-auto m-2">Update</button>
+        <div class="item-center">
+            @if ($update_data == true)
+            <button type="sumbit" class="btn btn-primary mx-auto m-2" wire:click="update">Update</button>
             <button class="btn btn-danger mx-auto m-2" wire:click="$refresh">Cancel</button>
-        @else
-            <button type="submit" class="btn btn-primary mx-auto m-2">Add</button>
-        @endif
-        </form>
+            @else
+            <button type="submit" class="btn btn-primary mx-auto m-2" wire:click="add">Add</button>
+            @endif
+        </div>
     </div>
 </div>
