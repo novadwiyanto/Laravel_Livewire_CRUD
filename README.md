@@ -3,8 +3,6 @@
 * Laravel 10
 * Livewire 3
 
-* `php artisan migrate`
-
 
 ## Guide to Build
 
